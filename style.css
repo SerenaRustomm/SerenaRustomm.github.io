@@ -1,0 +1,51 @@
+ul{
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+li{
+    display: inline;
+    padding: 0px 10px 0px 10px;
+}		
+a{
+    color:black;
+    font-size:25px;
+}
+body {
+    background-color: #c4a7a7;
+}
+header {
+    background-color:black;
+    padding: 20px; 
+    text-align: center;
+}
+h1{
+    color:#c4a7a7;
+    font-size: 55px;
+} 
+img{
+    height: 70px;
+    width: 70px;
+}
+h2{
+    text-align: center;
+
+}
+
+ h1 {
+    overflow: hidden; 
+    white-space: nowrap;
+    margin: 0 auto; 
+    animation: 
+      typing 5s steps(40, end),
+      blinking .75s step-end infinite;
+  }
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blinking {
+    50% { border-color: transparent; }
+  }
+  

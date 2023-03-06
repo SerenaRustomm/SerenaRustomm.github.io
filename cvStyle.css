@@ -1,0 +1,128 @@
+  header {
+    background-color: #c4a7a7;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+  }
+  #name {
+    margin: 0;
+    font-size: 36px;
+    color: black;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  #profile {
+    width: 200px;
+    height: 200px;
+  }
+  ul{
+    padding: 10px;
+    }
+    li{
+    display: inline;
+    padding: 0px 10px 0px 10px;
+    }		
+    a{
+    color:black;
+    font-size:20px;
+    }
+  #profile,#name,#mail{
+    margin-left: -120px;
+  }
+  .header-left,.header-right,.right,.left{
+    flex: 50%;
+  }
+  .left{
+    margin-left: 80px;
+  }
+  .right{
+    margin-right: 80px;
+  }
+  .header-table{
+    border: 2px;
+    border-color: black;
+    border-radius: 20px;
+    border-style: solid;
+    font-size: 20px;
+    color: black;
+    margin-left: 145px;
+  }
+  .header-right{
+    margin-top: 40px;
+  }
+  #PI{
+    font-size: 25px;
+    color: black;
+    margin-left: 140px;
+    text-align: left;
+  }
+  #phone,#date,#address{
+    width: 30px;
+    height: 30px;
+  }
+  #profile,#phone,#date,#address {
+    border: 6px;
+    border-color: black;
+    border-radius: 20px;
+    border-style: solid;
+  }
+  main{
+    padding: 20px;
+    text-align: center;
+    display: flex;
+  }
+  li#back{
+    display: inline;
+    padding: 0px 10px 0px 10px;
+    border: 3px;
+    border-color: black;
+    border-radius: 20px;
+    border-style: solid;
+    background-color: black;
+  }
+  #back a{
+    color:white;
+    font-size:20px;
+    text-decoration: none;
+  } 
+  .left h2,.l-info{
+    margin-left: -200px;
+  }
+  .left h2{
+    border: 6px;
+    border-color: black;
+    border-radius: 20px;
+    border-style: solid;
+    width: 300px;
+    text-align: center;
+    margin-left: 5px;
+    background-color: #c4a7a7;
+  }
+  dd{
+    font-size: 17px;
+  }
+  .right h2{
+    border: 6px;
+    border-color: black;
+    border-radius: 20px;
+    border-style: solid;
+    width: 300px;
+    text-align: center;
+    margin-left: 100px;
+    background-color: #c4a7a7;
+  }
+  .r-info{
+    margin-left: -200px;
+  }
+  /*.vl {
+    border: solid black;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    margin-top: -30px;
+  }*/
