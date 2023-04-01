@@ -48,4 +48,8 @@ h2{
   @keyframes blinking {
     50% { border-color: transparent; }
   }
-  
+  #quiz{
+    width:200px;
+    height: 200px;
+    margin-top: 50px;
+  }

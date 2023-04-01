@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="quizStyle.css">
+    <link rel="icon" href="quizIcon.png">
+    <title>Quiz</title>
+
+    <script type="text/javascript">
+        function getCode(){
+            var id = document.getElementById("user").value;
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("pass").value;
+            if(id==""){
+                alert("Please enter your id");
+                return;
+            }
+            if(name==""){
+                alert("Please enter your name");
+                return;
+            }
+            for(let i=0 ; i<id.length; i++){
+                if (id[i] < '0' || id[i] > '9') {
+				    alert("Incorrect id");
+                    return;
+			    }
+            }
+            if(password==""){
+                alert("Please enter your password");
+                return;
+            }
+            alert("Quiz password is 1234");
+        }
+		function login() {
+            var pass = document.getElementById("q-pass").value;
+            if(pass==""){
+                alert("Please enter quiz password");
+                return;
+            }
+            if(pass!="1234"){
+                alert("Incorrect password");
+                return;
+            }
+            document.getElementById("login-form").style.display = "none";
+			document.getElementById("quiz-form").style.display = "block";
+            document.body.style.backgroundColor="#c4a7a7";
+            showQuestion(0);
+		}
+
+        function seePass(){
+            document.getElementById("see").style.display = "none";
+            document.getElementById("hide").style.display = "block";
+            document.getElementById("pass").type="text";
+        }
+        function hidePass(){
+            document.getElementById("hide").style.display = "none";
+            document.getElementById("see").style.display = "block";
+            document.getElementById("pass").type="password";
+        }
+
+        function QseePass(){
+            document.getElementById("q-see").style.display = "none";
+            document.getElementById("q-hide").style.display = "block";
+            document.getElementById("q-pass").type="text";
+        }
+        function QhidePass(){
+            document.getElementById("q-hide").style.display = "none";
+            document.getElementById("q-see").style.display = "block";
+            document.getElementById("q-pass").type="password";
+        }
+
+        var currentQuestion = 0;
+        var questions = [
+            {
+                question: "1.How many days does it take for the Earth to orbit the Sun?",
+                choices: ["265", "360", "150", "365"],
+                answer: 3,
+                img: "q1.png",
+                userAnswer: null 
+            },
+            {
+                question: "2.How many rings are on the Olympic flag?",
+                choices: ["None", "4", "5", "7"],
+                answer: 2,
+                img: "q2.jpg",
+                userAnswer: null
+            },
+            {
+                question: "3.How many holes are on a standard bowling ball?",
+                choices: ["2", "3", "5", "10"],
+                answer: 1,
+                img: "q3.webp",
+                userAnswer: null
+            },
+            {
+                question: "4.In darts, what's the most points you can score with a single throw?",
+                choices: ["60", "50", "20", "100"],
+                answer: 0,
+                img: "q4.webp",
+                userAnswer: null
+            },
+            {
+                question: "5.What are the main colors on the flag of Spain?",
+                choices: ["Black and Yellow", "Blue and White", "Green and White", "Red and Yellow"],
+                answer: 3,
+                img: "q5.png",
+                userAnswer: null
+            }
+        ];
+
+        function showQuestion(currentQuestion) {
+            var question = questions[currentQuestion];
+            document.getElementById("question").innerHTML = question.question;
+            document.getElementById("img").innerHTML = "<img src="+question.img+" style=\"width: 100px; height: 100px; border-radius: 50px; background-color: white; border: solid black; margin-right: 500px; margin-top: -30px;\">";
+            var choices = question.choices;
+            var choicesHtml = "";
+            for (var i = 0; i < choices.length; i++) {
+                var checked = "";
+                if (question.userAnswer != null && question.userAnswer == i) {
+                    checked = "checked";
+                }
+                choicesHtml += '<input type="radio" name="choice" value="' + i + '" onclick="answerSelected(' + i + ')" ' + checked + ' style="cursor:pointer;"> ' + choices[i] + '<br>';
+            }
+            document.getElementById("choices").innerHTML = choicesHtml;
+            document.getElementById("back").disabled = (currentQuestion == 0);
+            document.getElementById("next").disabled = (currentQuestion == questions.length - 1);
+            document.getElementById("submit").disabled = (currentQuestion != questions.length-1);
+        }
+
+        function answerSelected(choice) {
+            questions[currentQuestion].userAnswer = choice;
+        }
+
+        function displayResult() {
+            var questionsHtml = "";
+            for (var i = 0; i < questions.length; i++) {
+                var question = questions[i];
+                var choices = question.choices;
+                var choicesHtml = "";
+                for (var j = 0; j < choices.length; j++) {
+                    var checked = "";
+                    var disabled = "";
+                    if (question.userAnswer != null && question.userAnswer == j) {
+                        checked = "checked";
+                    }
+                    disabled = "disabled";
+                    choicesHtml += '<input type="radio" id="q-choice" value="' + j + '" onclick="answerSelected(' + i + ')" ' + checked + ' ' + disabled + ' style="cursor: not-allowed;"> ' + choices[j] + '<br>';
+                }
+                questionsHtml += "<img src="+question.img+" style=\"width: 100px; height: 100px; border-radius: 50px; background-color: white; border: solid black; margin-right: 500px; margin-top: 30px;\">";
+                if(questions[i].answer == questions[i].userAnswer){
+                    questionsHtml+="<p id=\"pt-result\">1/1</p><p id=\"cor-ans2\">Correct Answer:<br>none</p>";
+                }
+                else{
+                    questionsHtml+="<p id=\"pt-result\">0/1</p><p id=\"cor-ans\">Correct Answer:<br>" + questions[i].choices[questions[i].answer] +"</p>";
+                }
+                questionsHtml += '<form class="form3"><div id="quest-result" align="center">' + question.question + '<div class="choices" style="text-align:left;margin-top:20px;">' + choicesHtml + '</div></div></form>';
+            }
+            document.getElementById("q-result").innerHTML = questionsHtml;
+        }
+
+        function submitQuiz() {
+            var score = 0;
+            for (var i = 0; i < questions.length; i++) {
+                var answer = questions[i].answer;
+                var userAnswer = questions[i].userAnswer;
+                if (answer == userAnswer) {
+                    score++;
+                }
+            }
+
+            var id = document.getElementById("user").value;
+            var name = document.getElementById("name").value;
+
+            document.getElementById("quiz-form").style.display = "none";    
+            document.getElementById("result").style.display = "block";
+            document.body.style.backgroundColor="white";
+            document.getElementById("id").innerHTML = "<p id=\"ID\">ID: " + id + "</p><p id=\"NAME\">" + name + "</p>";
+            document.getElementById("score").innerHTML = "<h3 style=\"border-radius: 25px;background-color: #c4a7a7;\">Grade:  " + score + "/" + questions.length + "</h3>";
+            displayResult();
+        }
+    </script>
+</head>
+<body>
+    <div id="login-form" align="center" style="margin-top: 70px;">
+        <form class="form" action="javascript:void(0);">
+            <h1 id="heading" style="text-align: center;">Login</h1>
+            <div class="field">
+                <input type="text" id="user" placeholder="ID">
+            </div>
+            <div class="field">
+                <input type="text" id="name" placeholder="Name">
+            </div>
+            <div class="field">
+                <input type="password" id="pass" placeholder="Password">
+                <button id="see" onclick="seePass()" type="button"><img src="https://cdn-icons-png.flaticon.com/512/8276/8276554.png" style="width: 16px; height: 16px;"></button>
+                <button id="hide" onclick="hidePass()" type="button" style="display: none;"><img src="https://cdn-icons-png.flaticon.com/512/61/61916.png" style="width: 15px; height: 15px;"></button>
+            </div>
+            <button id="code" onclick="getCode()" style="width: 170px; margin-left: 110px;">Get Quiz Password</button>
+            <div class="field">
+                <input type="password" id="q-pass" placeholder="Quiz Password">
+                <button id="q-see" onclick="QseePass()" type="button"><img src="https://cdn-icons-png.flaticon.com/512/8276/8276554.png" style="width: 16px; height: 16px;"></button>
+                <button id="q-hide" onclick="QhidePass()" type="button" style="display: none;"><img src="https://cdn-icons-png.flaticon.com/512/61/61916.png" style="width: 15px; height: 15px;"></button>
+            </div>
+            <button id="log" onclick="login()"><b>Attempt quiz</b></button>
+        </form>
+    </div>
+    
+    <div id="quiz-form" align="center" style="display: none; margin-top: 50px;">
+        <h1 id="heading1" style="text-align: center;">Quiz</h1>
+        <div id="img"></div>
+        <form class="form2" action="javascript:void(0);">
+            <div id="question" align="center"></div>
+            <div id="choices"></div>
+            <button id="back" onclick="showQuestion(--currentQuestion)">Back</button>
+            <button id="next" onclick="showQuestion(++currentQuestion)">Next</button>
+        </form>
+        <button id="submit" onclick="submitQuiz()">Submit</button>
+    </div>
+
+    <div id="result" style="display: none;">
+		<div id="id"></div>
+        <p id="score"></p>
+        <div id="q-result" align="center"></div>
+    </div>
+</body>
+</html>
